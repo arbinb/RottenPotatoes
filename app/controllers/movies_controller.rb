@@ -13,7 +13,8 @@ class MoviesController < ApplicationController
     if !params.key?("ratings") and !params.key?("sort") and session[:set] == 1
       params[:ratings] = session[:saved_ratings]
       params[:sort] = session[:saved_sort]
-      # redirect_to(movie_path(params))
+      params[:id] = "movies"
+      redirect_to(movie_path(params))
     end
     
     # checkbox
