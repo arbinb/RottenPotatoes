@@ -9,18 +9,14 @@ class MoviesController < ApplicationController
   def index
     @all_ratings = Movie.all_ratings
     
-    # set cookie
-      session[:set] = 1
-      session[:saved_ratings] = params[:ratings]
-      session[:saved_sort] = params[:sort]
-    
     # set settings from cookie
     if !params.key?("ratings") and !params.key?("sort") and session[:set] == 1
       params[:ratings] = session[:saved_ratings]
       params[:sort] = session[:saved_sort]
       redirect_to(movie_path(params))
     end
-
+    
+    # checkbox
     if params[:ratings].nil?
       @ratings_to_show = []
       @movies = Movie.all
@@ -28,12 +24,19 @@ class MoviesController < ApplicationController
       @ratings_to_show = params[:ratings].keys
       @movies = Movie.where(rating: @ratings_to_show)
     end
+    
+    # sorting
     @movies = @movies.order(params[:sort])
     if params[:sort] == "title"
       @title_color = "hilite bg-warning"
     elsif params[:sort] == "release_date"
       @release_color = "hilite bg-warning"
     end
+    
+    # set cookie
+    session[:set] = 1
+    session[:saved_ratings] = params[:ratings]
+    session[:saved_sort] = params[:sort]
   end
 
   def new
