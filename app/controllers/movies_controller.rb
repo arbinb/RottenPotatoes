@@ -16,6 +16,11 @@ class MoviesController < ApplicationController
       @movies = Movie.where(rating: @ratings_to_show)
     end
     @movies = @movies.order(params[:sort])
+    if params[:sort] == "title"
+      @title_color = "hilite bg-warning"
+    elsif params[:sort] == "release_date"
+      @release_color = "hilite bg-warning"
+      
   end
 
   def new
