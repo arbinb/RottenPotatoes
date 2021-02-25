@@ -15,12 +15,12 @@ class MoviesController < ApplicationController
       @ratings_to_show = params[:ratings].keys
       @movies = Movie.where(rating: @ratings_to_show)
     end
+    @movies = @movies.order(params[:sort])
     if params[:sort] == "title"
-      @movies = @movies.order(params[:sort])
       @title_color = "hilite bg-warning"
     elsif params[:sort] == "release_date"
-      @movies = @movies.order(params[:sort])
       @release_color = "hilite bg-warning"
+    end
       
   end
 
