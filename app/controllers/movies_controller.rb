@@ -8,10 +8,9 @@ class MoviesController < ApplicationController
 
   def index
     @all_ratings = Movie.all_ratings
-    @not_from_home = Movie.find(params[:nhome])
     
     # set settings from cookie
-    if !params.key?("ratings") and !params.key?("sort") and session[:set] == 1 and params[:nhome] == 1
+    if params[:ratings].nil? and params[sort].nil? and session[:set] == 1
       params[:ratings] = session[:saved_ratings]
       params[:sort] = session[:saved_sort]
       redirect_to(movies_path(params))
