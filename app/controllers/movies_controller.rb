@@ -8,7 +8,7 @@ class MoviesController < ApplicationController
 
   def index
     @all_ratings = Movie.all_ratings
-    @testt = Movie(params[:testt])
+    @testt = params[:testt])
     
     # set settings from cookie
     if params[:ratings].nil? and params[:sort].nil? and testt == 1
