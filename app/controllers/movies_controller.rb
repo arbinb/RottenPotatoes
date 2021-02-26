@@ -10,7 +10,7 @@ class MoviesController < ApplicationController
     @all_ratings = Movie.all_ratings
     
     # set settings from cookie
-    if params[:ratings].nil? and params[:sort].nil? and params[:home].nil?
+    if params[:ratings].nil? and params[:sort].nil? and !params[:home].nil?
       params[:ratings] = session[:saved_ratings]
       params[:sort] = session[:saved_sort]
       redirect_to(movies_path(params))
